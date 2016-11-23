@@ -49,7 +49,11 @@ class Rah_Privileges
     public function install()
     {
         if (get_pref('rah_privileges_privs', false) === false) {
-            set_pref('rah_privileges_privs', '', 'rah_privs', PREF_ADVANCED, 'rah_privileges_input', 80);
+            if (defined('PREF_PLUGIN')) {
+                set_pref('rah_privileges_privs', 0, 'rah_privs', PREF_PLUGIN, 'rah_privileges_input', 80);
+            } else {
+                set_pref('rah_privileges_privs', 0, 'rah_privs', PREF_ADVANCED, 'rah_privileges_input', 80);
+            }
         }
     }
 
