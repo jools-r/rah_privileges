@@ -185,6 +185,7 @@ function rah_privileges_input()
             $name = 'rah_privileges_groups_'.$index.'[]';
             $id = 'rah_privileges_groups_'.$index.'_'.intval($group);
 
+            $out[] = '<div class="rah_privileges-checkbox-item">';
             $out[] = checkbox(
                 $name,
                 $group,
@@ -194,6 +195,7 @@ function rah_privileges_input()
             );
 
             $out[] = '<label for="'.$id.'">'.$label.'</label>';
+            $out[] = '</div>';
         }
 
         $index++;
