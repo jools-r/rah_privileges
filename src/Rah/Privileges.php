@@ -39,6 +39,7 @@ class Rah_Privileges
         register_callback(array($this, 'install'), 'plugin_lifecycle.rah_privileges', 'installed');
         register_callback(array($this, 'uninstall'), 'plugin_lifecycle.rah_privileges', 'deleted');
         register_callback(array($this, 'savePrefs'), 'prefs', '', 1);
+        register_callback(array($this, 'inject_css'), 'admin_side', 'head_end');
         $this->mergePrivileges();
     }
 
@@ -126,6 +127,51 @@ class Rah_Privileges
 
         $prefs['rah_privileges_privs'] = $_POST['rah_privileges_privs'] = json_encode($data);
         $this->mergePrivileges();
+    }
+  
+    /**
+     * Inject style rules into the head of the page.
+     *
+     * @return string      Style rules, or nothing if not the correct $event
+     */
+
+    public function inject_css()
+    {
+        global $event;
+
+        if ($event === 'prefs') {
+            $rah_plugin_styles = $this->get_style_rules();
+
+            echo '<style>' . $rah_plugin_styles['rah_privileges'] . '</style>';
+        }
+
+        return;
+    }
+
+    /**
+     * CSS definitions: hopefully kind to themers.
+     *
+     * @return string      Style rules
+     */
+
+    protected function get_style_rules()
+    {
+        $rah_plugin_styles = array(
+            'rah_privileges' => '
+#prefs-rah_privileges_privs { 
+  display: block;
+}
+.rah_privileges-checkbox-item {
+  display: inline-block;
+  white-space: nowrap;
+}
+.rah_privileges-checkbox-item .checkbox + label {
+    padding: 0 2em 0 0.5em;
+}
+            ',
+        );
+
+        return $rah_plugin_styles;
     }
 }
 
