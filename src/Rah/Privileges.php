@@ -35,28 +35,28 @@ class Rah_Privileges
 
     public function __construct()
     {
+        global $event;
+
         add_privs('prefs.rah_privs', '1');
-        register_callback(array($this, 'install'), 'plugin_lifecycle.rah_privileges', 'installed');
+
         register_callback(array($this, 'uninstall'), 'plugin_lifecycle.rah_privileges', 'deleted');
-        register_callback(array($this, 'savePrefs'), 'prefs', '', 1);
-        register_callback(array($this, 'inject_css'), 'admin_side', 'head_end');
+        register_callback(array($this, 'addLocalization'), 'prefs', '', 1);
+
+        if ($event === 'prefs') {
+
+            // Get user group language strings not in plugin namespace
+            $ui_lang = get_pref('language_ui', TEXTPATTERN_DEFAULT_LANG);
+            $langObject = \Txp::get('\Textpattern\L10n\Lang');
+            $strings = $langObject->extract($ui_lang, 'admin'); // Get from 'admin' group
+            $langObject->setPack($strings, true); // Append (=true) to internal loaded strings
+
+            register_callback(array($this, 'injectCss'), 'admin_side', 'head_end');
+            $this->syncPrefs();
+        }
+
         $this->mergePrivileges();
     }
 
-    /**
-     * Installer.
-     */
-
-    public function install()
-    {
-        if (get_pref('rah_privileges_privs', false) === false) {
-            if (defined('PREF_PLUGIN')) {
-                set_pref('rah_privileges_privs', 0, 'rah_privs', PREF_PLUGIN, 'rah_privileges_input', 80);
-            } else {
-                set_pref('rah_privileges_privs', 0, 'rah_privs', PREF_ADVANCED, 'rah_privileges_input', 80);
-            }
-        }
-    }
 
     /**
      * Uninstaller.
@@ -65,113 +65,143 @@ class Rah_Privileges
     public function uninstall()
     {
         safe_delete('txp_prefs', "name like 'rah\_privileges\_%'");
+        safe_delete('txp_lang', "owner = 'rah_privileges'");
+    }
+
+
+    /**
+     * CSS for Prefs pane.
+     */
+
+    public function injectCss()
+    {
+        // rah_privs stylesheets
+        echo '<style>
+    .txp-tabs-vertical-group .txp-form-field-label, .txp-tabs-vertical-group .txp-form-field-value { flex: 1 1 100%; }
+    #prefs_group_rah_privs .txp-form-field-label label { font-weight: bold; }
+    #prefs_group_rah_privs .txp-form-field-value span { font-size: 12px; margin-right: 1.75em; white-space: nowrap; }
+</style>';
+    }
+
+
+    /**
+     * Syncs preference fields.
+     *
+     * Creates preference keys for each permission resource. This
+     * is how we get the fields to show up in the interface.
+     */
+
+    public function syncPrefs()
+    {
+        global $textarray, $txp_permissions;
+
+        $active = array();
+
+        $ui_lang = get_pref('language_ui', TEXTPATTERN_DEFAULT_LANG);
+
+        // Create a preferences string for every privilege that exists.
+        foreach ($txp_permissions as $resource => $privs) {
+            $name = 'rah_privileges_' . md5($resource);
+            $textarray[$name] = $resource;
+
+
+            if(gTxt($name) == $name) {
+                safe_upsert('txp_lang',
+                    "event   = 'admin',
+                     owner   = 'rah_privileges',
+                     lang    = '".$ui_lang."',
+                     data    = '".$resource."',
+                     lastmod = now()",
+                    "name = '".$name."'"
+                );
+            }
+
+            // Add panel name infront of the list.
+            $privs = do_list($privs);
+            array_unshift($privs, $resource);
+            $privs = implode(', ', $privs);
+
+            if (get_pref($name, false) === false) {
+                set_pref($name, $privs, 'rah_privs', PREF_PLUGIN, 'rah_privileges_input', 80);
+            }
+
+            $active[] = $name;
+        }
+
+        // Remove privileges that no longer exist.
+
+        if ($active) {
+            $active = implode(',', quote_list((array) $active));
+
+            safe_delete(
+                'txp_prefs',
+                "name like 'rah\_privileges\_%' and name not in({$active})"
+            );
+            safe_delete(
+                'txp_lang',
+                "name like 'rah\_privileges\_%' and name not in({$active})"
+            );
+        }
     }
 
     /**
-     * Merges privileges table with our overwrites.
+     * Add panel titles into the translation array as pref labels.
+     */
+
+    public function addLocalization() {
+        global $textarray;
+
+        $resources = array();
+
+        foreach (areas() as $area => $events) {
+            foreach ($events as $title => $resource) {
+                $name = 'rah_privileges_' . md5($resource);
+                $textarray[$name] = $title;
+            }
+        }
+
+        // Update field sorting index.
+        foreach ($textarray as $name => $string) {
+            if (strpos($name, 'rah_privileges_') === 0) {
+                $resources[$name] = $string;
+            }
+        }
+
+        $index = 1;
+        asort($resources);
+
+        foreach ($resources as $name => $resource) {
+            update_pref($name, null, null, null, null, $index++);
+        }
+    }
+
+    /**
+     * Merges permissions table with our overwrites.
      */
 
     public function mergePrivileges()
     {
-        global $txp_permissions, $event;
+        global $prefs, $txp_permissions, $event;
 
-        if (!get_pref('rah_privileges_privs')) {
-            return;
-        }
+        foreach ($prefs as $name => $value) {
+            if (strpos($name, 'rah_privileges_') !== 0) {
+                continue;
+            }
 
-        $privs = json_decode(get_pref('rah_privileges_privs'), true);
+            $groups = do_list($value);
+            $resource = array_shift($groups);
+            $groups = implode(',', $groups);
 
-        if (!is_array($privs)) {
-            return;
-        }
+            if ($event === 'prefs' && strpos($resource, 'prefs') === 0) {
+                continue;
+            }
 
-        if ($event === 'prefs') {
-            unset(
-                $privs['prefs'],
-                $privs['prefs.rah_privs']
-            );
-        }
-
-        foreach ($privs as $resource => $groups) {
             if (!$groups) {
                 $txp_permissions[$resource] = null;
             } else {
-                $txp_permissions[$resource] = implode(',', (array) $groups);
+                $txp_permissions[$resource] = $groups;
             }
         }
-    }
-
-    /**
-     * Saves privileges configuration.
-     */
-
-    public function savePrefs()
-    {
-        global $prefs;
-
-        if (!isset($_POST['rah_privileges_resource_0'])) {
-            return;
-        }
-
-        $data = array();
-
-        foreach ($_POST as $name => $value) {
-            if (strpos($name, 'rah_privileges_resource_') === 0) {
-                $index = substr($name, strlen('rah_privileges_resource_'));
-                $groups = ps('rah_privileges_groups_'.$index);
-                $resource = (string) ps($name);
-                $data[$resource] = $groups;
-                unset($_POST['rah_privileges_groups_'.$index], $_POST[$name]);
-            }
-        }
-
-        $prefs['rah_privileges_privs'] = $_POST['rah_privileges_privs'] = json_encode($data);
-        $this->mergePrivileges();
-    }
-  
-    /**
-     * Inject style rules into the head of the page.
-     *
-     * @return string      Style rules, or nothing if not the correct $event
-     */
-
-    public function inject_css()
-    {
-        global $event;
-
-        if ($event === 'prefs') {
-            $rah_plugin_styles = $this->get_style_rules();
-
-            echo '<style>' . $rah_plugin_styles['rah_privileges'] . '</style>';
-        }
-
-        return;
-    }
-
-    /**
-     * CSS definitions: hopefully kind to themers.
-     *
-     * @return string      Style rules
-     */
-
-    protected function get_style_rules()
-    {
-        $rah_plugin_styles = array(
-            'rah_privileges' => '
-#prefs-rah_privileges_privs { 
-  display: block;
-}
-.rah_privileges-checkbox-item {
-  display: inline-block;
-  white-space: nowrap;
-}
-.rah_privileges-checkbox-item .checkbox + label {
-    padding: 0 2em 0 0.5em;
-}
-            ',
-        );
-
-        return $rah_plugin_styles;
     }
 }
 
@@ -181,70 +211,38 @@ class Rah_Privileges
  * @return string HTML widget
  */
 
-function rah_privileges_input()
+function rah_privileges_input($name, $value)
 {
     global $txp_permissions, $plugin_areas;
 
-    $permissions = $txp_permissions;
-    $mergedpermissions = $out = $panels = array();
-    $index = 0;
+    $field = $name . '[]';
     $levels = get_groups();
+    $groups = do_list($value);
+    $resource = array_shift($groups);
+    $out = array();
 
     unset($levels[0]);
+    $out[] = hInput($field, $resource);
 
-    $labels = array_keys($permissions);
-    $panels = array_combine(array_values($labels), array_fill(0, count($labels), 1));
-    $labels = array_combine($labels, $labels);
+    foreach ($levels as $group => $label) {
+        $id = $name . '_' . intval($group);
+        $checked = in_array($group, $groups);
 
-    if (get_pref('rah_privileges_privs')) {
-        $mergedpermissions = json_decode(get_pref('rah_privileges_privs'), true);
-    }
-
-    foreach (areas() as $area => $events) {
-        foreach ($events as $title => $event) {
-            if (array_key_exists($event, $labels)) {
-                $labels[$event] = $title;
-                $panels[$event] = 0;
-            }
-        }
-    }
-
-    array_multisort($panels, SORT_ASC, SORT_NUMERIC, $labels, SORT_ASC, SORT_STRING, $permissions);
-
-    foreach ($permissions as $resource => $groups) {
-        $out[] = hInput('rah_privileges_resource_'.$index, $resource);
-
-        if ($index !== 0) {
-            $out[] = br.br;
-        }
-
-        $out[] = tag($labels[$resource], 'strong').br;
-
-        if (isset($mergedpermissions[$resource])) {
-            $groups = $mergedpermissions[$resource];
-        } elseif ($groups !== null) {
-            $groups = explode(',', (string) $groups);
-        }
-
-        foreach ($levels as $group => $label) {
-            $checked = is_array($groups) && in_array($group, $groups);
-            $name = 'rah_privileges_groups_'.$index.'[]';
-            $id = 'rah_privileges_groups_'.$index.'_'.intval($group);
-
-            $out[] = '<div class="rah_privileges-checkbox-item">';
-            $out[] = checkbox(
-                $name,
+        $out[] = tag(
+            checkbox(
+                $field,
                 $group,
                 $checked,
                 '',
                 $id
-            );
+            ) . ' ' .
 
-            $out[] = '<label for="'.$id.'">'.$label.'</label>';
-            $out[] = '</div>';
-        }
+            tag(gTxt($label), 'label', array('for' => $id)),
 
-        $index++;
+            'span'
+
+        ). ' ';
+
     }
 
     return implode('', $out);

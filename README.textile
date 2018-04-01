@@ -1,35 +1,41 @@
 h1. rah_privileges
 
-"Download":https://github.com/gocom/rah_privileges/releases | "Packagist":https://packagist.org/packages/rah/rah_privileges | "Donate":http://rahforum.biz/donate/rah_privileges
-
-Configure admin-side user-group permissions from Textpattern's Advanced Preferences panel.
+Configure admin-side user-group permissions from Textpattern's 'Admin › Preferences' panel.
 
 h2. Install
 
-Using "Composer":http://getcomposer.org:
+"Download":https://github.com/jools-r/rah_privileges/releases a plugin package.
 
-bc. $ composer require rah/rah_privileges:*
+h2. Usage
 
-Or "download":https://github.com/gocom/rah_privileges/releases a plugin package.
+Open the 'Admin › Preferences' panel and switch to 'Privileges'. Set the checkboxes to permit or disallow access to a particular action or panel for each user group ("publisher", "designer", "staff writer", etc.). This can be an entire panel or a sub-action of a panel (e.g. edit own articles). Privileges introduced by plugins should also be automatically added.
+
+Use with care to avoid locking your users or yourself out of particular parts of the admin area.
 
 h2. Requirements
 
-* Textpattern 4.4.1 or newer.
-* PHP 5.2.0 or newer.
+* Textpattern 4.7.0 or newer.
+* PHP 5.3.0 or newer.
 
-h2. Toolshed notice
+h2. Credits
 
-This is a toolshed project. Experimental and not part of the main supported product line of Rah.
+This plugin is a fork of "rah_privileges":https://github.com/gocom/rah_privileges by "Jukka Svahn":https://github.com/gocom. Minor updates and fixes by "jcr":https://github.com/jools-r/rah_privileges/.
 
 h2. Changelog
 
-h3. Version 0.1.3 - 2017/02/03 – jakob
+h3. Version 0.2.0 - 2018/04/01 (additions by jcr)
 
-* Switched to type 5 plugin (thanks etc).
+* Fixed: Textpattern 4.7.x compatibility.
+* Changes: Reworked to use pref panel mechanism (gocom).
+* Fixed: Labels use pref panel language strings.
+* Now requires Textpattern 4.7.0 or newer.
 
-h3. Version 0.1.2 - 2016/11/23 – jakob
+h3. Version 0.1.3 - 2018/02/03 (fixes by jcr)
 
-* Updates for v.4.6 prefs pane and layout corrections.
+* Fixed: Textpattern 4.6.x compatibility.
+* Added: Pref panel layout fits better Textpattern 4.6.0 panes.
+* Correct plugin type (thanks etc)
+* Now requires Textpattern 4.6.0 or newer.
 
 h3. Version 0.1.1 - 2015/03/04
 

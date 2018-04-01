@@ -1,4 +1,3 @@
 #@admin
-#@language de-DE
-rah_privs => Benutzerrechte
-rah_privileges_privs => Benutzerrechte verwalten für Admin-Bereiche bzw. Aktionen
+#@language de, de-de
+rah_privs => Berechtigungen
