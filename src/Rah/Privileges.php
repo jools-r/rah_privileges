@@ -41,7 +41,6 @@ class Rah_Privileges
 
         register_callback(array($this, 'enabled'), 'plugin_lifecycle.rah_privileges', 'enabled');
         register_callback(array($this, 'uninstall'), 'plugin_lifecycle.rah_privileges', 'deleted');
-        register_callback(array($this, 'addLocalization'), 'prefs', '', 1);
 
         if ($event === 'prefs') {
 
@@ -90,7 +89,11 @@ class Rah_Privileges
         echo '<style>
     #prefs_group_rah_privs .txp-form-field-label,
     #prefs_group_rah_privs .txp-form-field-value { flex: 1 1 100%; }
+    #prefs_group_rah_privs .txp-form-field-label { min-height: 1.80em; margin-top: 0.3em; }
     #prefs_group_rah_privs .txp-form-field-label label { font-weight: bold; }
+    #prefs_group_rah_privs .txp-form-field-label .privs-name { font-weight: normal; color: #999; padding-left: 1em; }
+    #prefs_group_rah_privs .txp-form-field-label .privs-name:before { content:"("; }
+    #prefs_group_rah_privs .txp-form-field-label .privs-name:after { content:")"; }
     #prefs_group_rah_privs .txp-form-field-value span { margin-right: 1.75em; white-space: nowrap; }
 </style>';
     }
@@ -105,34 +108,37 @@ class Rah_Privileges
 
     public function syncPrefs()
     {
-        global $textarray, $txp_permissions;
+        global $txp_permissions;
 
         $active = array();
-
+        // Get current UI language
         $ui_lang = get_pref('language_ui', TEXTPATTERN_DEFAULT_LANG);
 
         // Create a preferences string for every privilege that exists.
         foreach ($txp_permissions as $resource => $privs) {
             $name = 'rah_privileges_' . md5($resource);
-            $textarray[$name] = $resource;
 
+            // Generate priv title from Textpack and append with raw privilege name.
+            $gtxt_title = gTxt('rah_privs_'.str_replace('.','_', $resource)).' <span class="privs-name">'.$resource.'</span>';
 
+            // Save priv title (only non-existent so not regenerated on every panel load).
             if(gTxt($name) == $name) {
                 safe_upsert('txp_lang',
                     "event   = 'admin',
                      owner   = 'rah_privileges',
                      lang    = '".$ui_lang."',
-                     data    = '".$resource."',
+                     data    = '".$gtxt_title."',
                      lastmod = now()",
                     "name = '".$name."'"
                 );
             }
 
-            // Add panel name infront of the list.
+            // Add panel name in front of the list of privileges.
             $privs = do_list($privs);
             array_unshift($privs, $resource);
             $privs = implode(', ', $privs);
 
+            // Set pref for privilege
             if (get_pref($name, false) === false) {
                 set_pref($name, $privs, 'rah_privs', PREF_PLUGIN, 'rah_privileges_input', 80);
             }
@@ -154,34 +160,33 @@ class Rah_Privileges
                 "name like 'rah\_privileges\_%' and name not in({$active})"
             );
         }
+
+        // Reorder privileges in prefs by localised titles
+        $this->sortbyLocalization();
+
     }
 
     /**
-     * Add panel titles into the translation array as pref labels.
+     * Resort rah_privs prefs rows by translated pref labels.
      */
 
-    public function addLocalization() {
-        global $textarray;
+    public function sortbyLocalization() {
+        global $txp_permissions;
 
         $resources = array();
 
-        foreach (areas() as $area => $events) {
-            foreach ($events as $title => $resource) {
-                $name = 'rah_privileges_' . md5($resource);
-                $textarray[$name] = $title;
-            }
+        // Get each privilege and title
+        foreach ($txp_permissions as $resource => $privs) {
+            $name = 'rah_privileges_' . md5($resource);
+            $gtxt_title = gTxt('rah_privs_'.str_replace('.','_', $resource));
+            $resources[$name] = $gtxt_title;
         }
 
-        // Update field sorting index.
-        foreach ($textarray as $name => $string) {
-            if (strpos($name, 'rah_privileges_') === 0) {
-                $resources[$name] = $string;
-            }
-        }
-
-        $index = 1;
+        // Sort alphabetically
         asort($resources);
 
+        // Update order (by resetting 'position')
+        $index = 1;
         foreach ($resources as $name => $resource) {
             update_pref($name, null, null, null, null, $index++);
         }

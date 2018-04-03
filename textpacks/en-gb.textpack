@@ -1,3 +1,100 @@
 #@admin
 #@language en, en-gb, en-us, en-ca
 rah_privs => Privileges
+
+# Content menu
+rah_privs_tab_content => Content menu
+rah_privs_article => Content › Write
+rah_privs_list => Content › Articles
+rah_privs_image => Content › Images
+rah_privs_file => Content › Files
+rah_privs_link => Content › Links
+rah_privs_category => Content › Categories
+rah_privs_discuss => Content › Comments
+
+# Presentation menu
+rah_privs_tab_presentation => Presentation menu
+rah_privs_skin => Presentation › Themes
+rah_privs_skin_edit => Presentation › Themes › can edit
+rah_privs_section => Presentation › Sections
+rah_privs_section_edit => Presentation › Sections › can edit
+rah_privs_page => Presentation › Pages
+rah_privs_form => Presentation › Forms
+rah_privs_css => Presentation › Styles
+
+# Admin menu
+rah_privs_tab_admin => Admin menu
+rah_privs_diag => Admin › Diagnostics
+rah_privs_prefs => Admin › Preferences
+rah_privs_prefs_edit => Admin › Preferences › can edit
+rah_privs_prefs_site => Admin › Preferences › Site
+rah_privs_prefs_admin => Admin › Preferences › Admin
+rah_privs_prefs_publish => Admin › Preferences › Publish
+rah_privs_prefs_feeds => Admin › Preferences › Feeds
+rah_privs_prefs_custom => Admin › Preferences › Custom fields
+rah_privs_prefs_comments => Admin › Preferences › Comments
+rah_privs_lang => Admin › Languages
+rah_privs_lang_edit => Admin › Languages › can edit
+rah_privs_admin => Admin › Users
+rah_privs_admin_edit => Admin › Users › can edit
+rah_privs_admin_edit_own => Admin › Users › can edit own
+rah_privs_admin_list => Admin › Users › can list
+rah_privs_plugin => Admin › Plugins
+rah_privs_log => Admin › Visitor logs
+
+# Extensions menu
+rah_privs_tab_extensions => Extensions menu
+
+# Article settings
+rah_privs_article_delete_own => Article › can delete own
+rah_privs_article_delete => Article › can delete
+rah_privs_article_edit => Article › can edit
+rah_privs_article_edit_published => Article › can edit published
+rah_privs_article_edit_own => Article › can edit own
+rah_privs_article_edit_own_published => Article › can edit own published
+rah_privs_article_preview => Article › can preview
+rah_privs_article_publish => Article › can publish
+rah_privs_article_php => Article › can include php
+rah_privs_article_set_markup => Article › can change markup settings
+
+# File settings
+rah_privs_file_edit => File › can edit
+rah_privs_file_edit_own => File › can edit own
+rah_privs_file_delete => File › can delete
+rah_privs_file_delete_own => File › can delete own
+rah_privs_file_publish => File › can publish
+
+# Image settings
+rah_privs_image_create_trusted => Image › can upload ‘unsafe’ image types
+rah_privs_image_edit => Image › can edit
+rah_privs_image_edit_own => Image › can edit own
+rah_privs_image_delete => Image › can delete
+rah_privs_image_delete_own => Image › can delete own
+
+# Link settings
+rah_privs_link_edit => Link › can edit
+rah_privs_link_edit_own => Link › can edit own
+rah_privs_link_delete => Link › can delete
+rah_privs_link_delete_own => Link › can delete own
+
+# Debug settings
+rah_privs_debug_verbose => Debug › verbose
+rah_privs_debug_backtrace => Debug › backtrace
+
+# General UI settings
+rah_privs_help => UI Help › can view popup help
+rah_privs_pane => UI Pane states › can set own open/closed pane states
+rah_privs_tag => UI Tag builder › can use tag builder
+
+# Plugin privileges (extend as needed or include in plugin textpack)
+rah_privs_ied_plugin_composer => Extensions › Plugin composer
+rah_privs_plugin_prefs_ied_plugin_composer => Admin › Preferences › Plugin composer
+rah_privs_rah_blobin_sync => Admin › Preferences › Plugin cache extender › Sync
+rah_privs_prefs_rah_blobin => Admin › Preferences › Plugin cache extender
+rah_privs_prefs_rah_privs => Admin › Preferences › Privileges
+rah_privs_bot_wtc_tab => Extensions › Write tab customize
+rah_privs_glz_custom_fields => Extensions › Custom Fields
+rah_privs_plugin_prefs_glz_custom_fields => Admin › Preferences › Custom field settings
+rah_privs_prefs_glz_custom_f => Admin › Preferences › Custom field settings: general
+rah_privs_prefs_glz_custom_f_glz_cf_datepicker => Admin › Preferences › Custom field settings: datepicker
+rah_privs_prefs_glz_custom_f_glz_cf_timepicker => Admin › Preferences › Custom field settings: timepicker
