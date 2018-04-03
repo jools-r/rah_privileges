@@ -39,6 +39,7 @@ class Rah_Privileges
 
         add_privs('prefs.rah_privs', '1');
 
+        register_callback(array($this, 'enabled'), 'plugin_lifecycle.rah_privileges', 'enabled');
         register_callback(array($this, 'uninstall'), 'plugin_lifecycle.rah_privileges', 'deleted');
         register_callback(array($this, 'addLocalization'), 'prefs', '', 1);
 
@@ -55,6 +56,16 @@ class Rah_Privileges
         }
 
         $this->mergePrivileges();
+    }
+
+
+    /**
+     * Flush priv language strings on enable.
+     */
+
+    public function enabled()
+    {
+        safe_delete('txp_lang', "name like 'rah\_privileges\_%'");
     }
 
 
