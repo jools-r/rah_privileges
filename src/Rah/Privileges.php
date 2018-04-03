@@ -90,7 +90,7 @@ class Rah_Privileges
         echo '<style>
     .txp-tabs-vertical-group .txp-form-field-label, .txp-tabs-vertical-group .txp-form-field-value { flex: 1 1 100%; }
     #prefs_group_rah_privs .txp-form-field-label label { font-weight: bold; }
-    #prefs_group_rah_privs .txp-form-field-value span { font-size: 12px; margin-right: 1.75em; white-space: nowrap; }
+    #prefs_group_rah_privs .txp-form-field-value span { margin-right: 1.75em; white-space: nowrap; }
 </style>';
     }
 
