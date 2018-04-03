@@ -2,26 +2,24 @@ h1. rah_privileges
 
 Configure admin-side user-group permissions from Textpattern's 'Admin › Preferences' panel.
 
-h2. Install
-
-"Download":https://github.com/jools-r/rah_privileges/releases a plugin package.
-
-h2. Usage
+h3. Usage
 
 Open the 'Admin › Preferences' panel and switch to 'Privileges'. Set the checkboxes to permit or disallow access to a particular action or panel for each user group ("publisher", "designer", "staff writer", etc.). This can be an entire panel or a sub-action of a panel (e.g. edit own articles). Privileges introduced by plugins should also be automatically added.
 
 Use with care to avoid locking your users or yourself out of particular parts of the admin area.
 
-h2. Requirements
+h2. Install
+
+"Download":https://github.com/jools-r/rah_privileges/releases a plugin package.
+
+h3. Requirements
 
 * Textpattern 4.7.0 or newer.
 * PHP 5.3.0 or newer.
 
-h2. Credits
+h2. Credits + Changelog
 
 This plugin is a fork of "rah_privileges":https://github.com/gocom/rah_privileges by "Jukka Svahn":https://github.com/gocom. Minor updates and fixes by "jcr":https://github.com/jools-r/rah_privileges/.
-
-h2. Changelog
 
 h3. Version 0.2.0 - 2018/04/01 (additions by jcr)
 
