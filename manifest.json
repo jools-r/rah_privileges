@@ -5,7 +5,7 @@
     "type": 5,
     "author": "Jukka Svahn + jcr",
     "author_uri": "http://rahforum.biz",
-    "order": 1,
+    "order": 9,
     "flags": 2,
     "help": {"file" : ["./README.textile"]},
     "code": {"file" : [
