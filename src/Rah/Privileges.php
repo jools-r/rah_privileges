@@ -131,6 +131,11 @@ class Rah_Privileges
                      lastmod = now()",
                     "name = '".$name."'"
                 );
+                $set_gTxt[$name] = $gtxt_title;
+            }
+
+            if (isset($set_gTxt)) {
+                Txp::get('\Textpattern\L10n\Lang')->setPack($set_gTxt, true);
             }
 
             // Add panel name in front of the list of privileges.
