@@ -1,0 +1,99 @@
+#@admin
+#@language fr
+rah_privs => Privilèges
+
+# Content menu
+rah_privs_tab_content => Menu Contenu
+rah_privs_article => Contenu › Rédiger
+rah_privs_list => Contenu › Articles
+rah_privs_image => Contenu › Images
+rah_privs_file => Contenu › Fichiers
+rah_privs_link => Contenu › Liens
+rah_privs_category => Contenu › Catégories
+rah_privs_discuss => Contenu › Commentaires
+
+# Presentation menu
+rah_privs_tab_presentation => Menu Présentation
+rah_privs_skin => Presentation › Thèmes
+rah_privs_skin_edit => Présentation › Thèmes › droits d’éditer
+rah_privs_section => Présentation › Sections
+rah_privs_section_edit => Présentation › Sections › droits d’éditer
+rah_privs_page => Présentation › Gabarits
+rah_privs_form => Présentation › Modules
+rah_privs_css => Présentation › Styles
+
+# Admin menu
+rah_privs_tab_admin => Menu Administration
+rah_privs_diag => Administration › Diagnostics
+rah_privs_prefs => Administration › Préférences
+rah_privs_prefs_edit => Administration › Préférences › droits d’éditer (toutes)
+rah_privs_prefs_site => Administration › Préférences › Site
+rah_privs_prefs_admin => Administration › Préférences › Administration
+rah_privs_prefs_publish => Administration › Préférences › Publier
+rah_privs_prefs_feeds => Administration › Préférences › Flux de syndication
+rah_privs_prefs_custom => Administration › Préférences › Saisie personnalisée
+rah_privs_prefs_comments => Administration › Préférences › Commentaires
+rah_privs_lang => Administration › Langues
+rah_privs_lang_edit => Administration › Langues › droits d’éditer (toutes)
+rah_privs_admin => Administration › Auteurs
+rah_privs_admin_edit => Administration › Auteurs › droits d’éditer (tous)
+rah_privs_admin_edit_own => Administration › Auteurs › droits d’éditer (le sien)
+rah_privs_admin_list => Administration › Auteurs › droits de consultation
+rah_privs_plugin => Administration › Plugins
+rah_privs_log => Administration › Journaux d’activités
+
+# Extensions menu
+rah_privs_tab_extensions => Menu Extensions
+
+# Article settings
+rah_privs_article_delete_own => Article › droits de suppression (les siens)
+rah_privs_article_delete => Article › droits de suppression (tous)
+rah_privs_article_edit => Article › droits d’éditer (tous)
+rah_privs_article_edit_published => Article › droits de publier (tous)
+rah_privs_article_edit_own => Article › droits d’éditer (les siens)
+rah_privs_article_edit_own_published => Article › droits d’éditer les publiés (les siens)
+rah_privs_article_preview => Article › droits d’aperçu
+rah_privs_article_publish => Article › droits de publication
+rah_privs_article_php => Article › droits à inclure du code PHP
+rah_privs_article_set_markup => Article › droits de choisir le format d’édition
+
+# File settings
+rah_privs_file_edit => Fichiers › droits d’éditer (tous)
+rah_privs_file_edit_own => Fichiers › droits d’éditer (les siens)
+rah_privs_file_delete => Fichiers › droits de supprimer (tous)
+rah_privs_file_delete_own => Fichiers › droits de supprimer (les siens)
+rah_privs_file_publish => Fichiers › droits de publier
+
+# Image settings
+rah_privs_image_create_trusted => Images › droits de téléverser des formats d’images non autorisés
+rah_privs_image_edit => Images › droits d’éditer (toutes)
+rah_privs_image_edit_own => Images › droits d’éditer (les siennes)
+rah_privs_image_delete => Images › droits de suppression (toutes)
+rah_privs_image_delete_own => Images › droits de suppression (les siennes)
+
+# Link settings
+rah_privs_link_edit => Liens › droits d’éditer (tous)
+rah_privs_link_edit_own => Liens › droits d’éditer (les siens)
+rah_privs_link_delete => Liens › droits de supprimer (tous)
+rah_privs_link_delete_own => Liens › droits de supprimer (les siens)
+
+# Debug settings
+rah_privs_debug_verbose => Debug › verbose
+rah_privs_debug_backtrace => Debug › backtrace
+
+# General UI settings
+rah_privs_help => UI Aide › droits d’affichage des fenêtres d’aide
+rah_privs_pane => UI Pane states › can set own open/closed pane states
+rah_privs_tag => UI Constructeur de balises › droits d’utilisation du constructeur de balises
+
+# Plugin privileges (extend as needed or include in plugin textpack)
+rah_privs_ied_plugin_composer => Extensions › Plugin composer
+rah_privs_plugin_prefs_ied_plugin_composer => Administration › Préférences › Plugin composer
+rah_privs_rah_blobin_sync => Administration › Préférences › Répertoire de cache des plugins › Sync
+rah_privs_prefs_rah_blobin => Administration › Préférences › Répertoire de cache des plugins
+rah_privs_prefs_rah_privs => Administration › Préférences › Privilèges
+rah_privs_bot_wtc_tab => Extensions › Write tab customize
+rah_privs_glz_custom_fields => Extensions › Champs personnalisés
+rah_privs_prefs_glz_custom_f => Administration › Préférences › Paramètres des champs personnalisés
+rah_privs_prefs_glz_custom_f_glz_cf_datepicker => Administration › Préférences › Paramètres des champs personnalisés : datepicker
+rah_privs_prefs_glz_custom_f_glz_cf_timepicker => Administration › Préférences › Paramètres des champs personnalisés : timepicker
