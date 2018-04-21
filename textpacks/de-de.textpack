@@ -1,3 +1,100 @@
 #@admin
 #@language de, de-de
 rah_privs => Berechtigungen
+
+
+# Content menu
+rah_privs_tab_content => Inhalt-Menü
+rah_privs_article => Inhalt › Write
+rah_privs_list => Inhalt › Artikel
+rah_privs_image => Inhalt › Bilder
+rah_privs_file => Inhalt › Dateien
+rah_privs_link => Inhalt › Links
+rah_privs_category => Inhalt › Kategorien
+rah_privs_discuss => Inhalt › Kommentare
+
+# Presentation menu
+rah_privs_tab_presentation => Presentation-Menü
+rah_privs_skin => Präsentation › Designs
+rah_privs_skin_edit => Präsentation › Designs › darf bearbeiten
+rah_privs_section => Präsentation › Sektionen
+rah_privs_section_edit => Präsentation › Sektionen › darf bearbeiten
+rah_privs_page => Präsentation › Seitenvorlagen
+rah_privs_form => Präsentation › Bausteine
+rah_privs_css => Präsentation › Stilvorlagen
+
+# Admin menu
+rah_privs_tab_admin => Administration-Menü
+rah_privs_diag => Administration › Diagnose
+rah_privs_prefs => Administration › Einstellungen
+rah_privs_prefs_edit => Administration › Einstellungen › darf bearbeiten
+rah_privs_prefs_site => Administration › Einstellungen › Webseite
+rah_privs_prefs_admin => Administration › Einstellungen › Administration
+rah_privs_prefs_publish => Administration › Einstellungen › Veröffentlichen
+rah_privs_prefs_feeds => Administration › Einstellungen › XML-Feeds
+rah_privs_prefs_custom => Administration › Einstellungen › Benutzerdefinierte Felder
+rah_privs_prefs_comments => Administration › Einstellungen › Kommentare
+rah_privs_lang => Administration › Sprachen
+rah_privs_lang_edit => Administration › Sprachen › darf bearbeiten
+rah_privs_admin => Administration › Benutzer
+rah_privs_admin_edit => Administration › Benutzer › darf bearbeiten
+rah_privs_admin_edit_own => Administration › Benutzer › darf eigenen bearbeiten
+rah_privs_admin_list => Administration › Benutzer › darf auflisten
+rah_privs_plugin => Administration › Plugins
+rah_privs_log => Administration › Protokolle
+
+# Extensions menu
+rah_privs_tab_extensions => Erweiterungen-Menü
+
+# Article settings
+rah_privs_article_delete_own => Artikel › darf eigenen löschen
+rah_privs_article_delete => Artikel › darf löschen
+rah_privs_article_edit => Artikel › darf bearbeiten
+rah_privs_article_edit_published => Artikel › darf veröffentlichte bearbeiten
+rah_privs_article_edit_own => Artikel › darf eigenen bearbeiten
+rah_privs_article_edit_own_published => Artikel › darf eigenen veröffentlichten bearbeiten
+rah_privs_article_preview => Artikel › darf Vorschau anzeigen
+rah_privs_article_publish => Artikel › darf veröffentlichen
+rah_privs_article_php => Artikel › darf php verwenden
+rah_privs_article_set_markup => Artikel › darf Textformatierung umstellen
+
+# File settings
+rah_privs_file_edit => Dateien › darf bearbeiten
+rah_privs_file_edit_own => Dateien › darf eigenen bearbeiten
+rah_privs_file_delete => Dateien › darf löschen
+rah_privs_file_delete_own => Dateien › darf eigenen löschen
+rah_privs_file_publish => Dateien › darf veröffentlichen
+
+# Image settings
+rah_privs_image_create_trusted => Bilder › darf ,unsichere‘ Dateiformate hochladen
+rah_privs_image_edit => Bilder › darf bearbeiten
+rah_privs_image_edit_own => Bilder › darf eigenen bearbeiten
+rah_privs_image_delete => Bilder › darf löschen
+rah_privs_image_delete_own => Bilder › darf eigenen löschen
+
+# Link settings
+rah_privs_link_edit => Link › darf bearbeiten
+rah_privs_link_edit_own => Link › darf eigenen bearbeiten
+rah_privs_link_delete => Link › darf löschen
+rah_privs_link_delete_own => Link › darf eigenen löschen
+
+# Debug settings
+rah_privs_debug_verbose => Debug › Ausführlich
+rah_privs_debug_backtrace => Debug › Ablaufverfolgung
+
+# General UI settings
+rah_privs_help => UI Hilfe › darf Pop-up-Hilfe aufrufen
+rah_privs_pane => UI Pane states › darf eigenen ein-/ausklapp-Einstellungen merken
+rah_privs_tag => UI Tag-Baukasten › darf Tag-Baukasten verwenden
+
+# Plugin privileges (extend as needed or include in plugin textpack)
+rah_privs_ied_plugin_composer => Erweiterungen › Plugin composer
+rah_privs_plugin_prefs_ied_plugin_composer => Administration › Einstellungen › Plugin composer
+rah_privs_rah_blobin_sync => Administration › Einstellungen › Plugin cache extender › Sync
+rah_privs_prefs_rah_blobin => Administration › Einstellungen › Plugin cache extender
+rah_privs_prefs_rah_privs => Administration › Einstellungen › Berechtigungen
+rah_privs_bot_wtc_tab => Erweiterungen › Write tab customize
+rah_privs_glz_custom_fields => Erweiterungen › Benutzerdefinierte Felder
+rah_privs_prefs_glz_custom_f => Administration › Einstellungen › Benutzerdefinierte Felder
+rah_privs_prefs_glz_custom_f_glz_cf_datepicker => Administration › Einstellungen › Benutzerdefinierte Felder: Datumswähler
+rah_privs_prefs_glz_custom_f_glz_cf_timepicker => Administration › Einstellungen › Benutzerdefinierte Felder: Zeitwähler
